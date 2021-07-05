@@ -22,8 +22,7 @@ L = lyap(A - Rbar*P,-Rbar);
 %資料ではW
 Diagonalize = [ eye(dim), L            ;
     P,        P*L+eye(dim)];
-Diag_inv = [eye(dim)+L*P, -L; 
-                -P, eye(dim)];  %Diagonalize^(-1); changed using simplectic property
+Diag_inv = Diagonalize^(-1);
 Ham = [A,-Rbar;-2*Q,-A'];
 %% === 各種行列表示 ===
 fprintf('\n')
