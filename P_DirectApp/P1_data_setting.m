@@ -8,7 +8,7 @@
 % ver5更新者  :2021/2/25 竹田 賢矢
 % 最終更新者  :2021/3/2 竹田 賢矢
 % ==========================================================================
-global P F Ft Diagonalize Diag_inv Ham
+global P F Ft Diagonalize Diag_inv Ham time_g xp_sp
 systemData    % 状態方程式の各行列の定義
 Rbar = B * (2*R)^(-1) * B';
 %% === P * A + A' * P -1/2* P * B * R^-1 * B' * P + 2*Q = 0 の解 Pを求め, 対角行列を求める ===

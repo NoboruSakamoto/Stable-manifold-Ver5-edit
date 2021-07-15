@@ -32,10 +32,10 @@ dbFlag   = 0;  % ƒfƒoƒbƒO—p‚ÌƒOƒ‰ƒt•\¦‚ğ‚·‚é‚©‚Ç‚¤‚©(0:ƒOƒ‰ƒt•\¦‚µ‚È‚¢, 1:ƒOƒ‰
 
 meshFlag = 0;  % p(x)‚ğƒƒbƒVƒ…‚Å•\Œ»‚·‚é‚©‚Ç‚¤‚©(0:‘½•Ï”‘½€®‹ß—, 1FƒƒbƒVƒ…)
 
-kFlag    = 1;  % K‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:systemData.m‚Å—^‚¦‚é)
+kFlag    = 0;  % K‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:systemData.m‚Å—^‚¦‚é)
 % Iteration number K (0:give in the M-window, 1:give in systemData.m)
 
-xiRFlag  = 1;  % xi‚Ì‘å‚«‚³‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:systemData.m‚Å—^‚¦‚é)
+xiRFlag  = 0;  % xi‚Ì‘å‚«‚³‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:systemData.m‚Å—^‚¦‚é)
 % Radius of convergence (0:give in the M-window, 0:give in systemData.m)
 
 xiTHFlag = 1;  % xi‚Ì•ªŠ„‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:systemData.m‚Å—^‚¦‚é)
@@ -112,10 +112,10 @@ Tneg_max = -3;
 %   / Terminate condition for negative direc. integration ===
 HAMK_n_max_juddge  = 1e-3;
 % === Ï•ªŠÔ‚ğŒˆ‚ß‚é‚½‚ß‚Ì‹ÉŒÀ”»’f—pƒpƒ‰ƒ[ƒ^ / Parameters for integration interval (pos. direction)
-tol = 1e-10;    % - ‹ÉŒÀ”»’f‚Ì‚½‚ß‚Ìè‡’l / Threshold value of 0-limit
+tol = 1e-12;    % - ‹ÉŒÀ”»’f‚Ì‚½‚ß‚Ìè‡’l / Threshold value of 0-limit used in P2
 
 % === odeŠÖ”—p‚Ìİ’è / ode options ===
-options_pos = odeset('RelTol',1e-6, 'AbsTol',1e-6,'Events',@termination,'Refine',50,'InitialStep',1e-12);
+options_pos = odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12);
 options_neg = odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12);
 
 % === ŒvZŒ‹‰Ê‚Ìƒf[ƒ^ŠÔˆø‚«”(>=1‚Ì®”) / Frequency of thing out data (integer) ===

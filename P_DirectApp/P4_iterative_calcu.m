@@ -92,7 +92,7 @@ for xi_i = 1:ini_row
         tmp_data = sortrows(tmp_data,1);
         time_p_p = tmp_data(:,1);
         forp_tmp_p = tmp_data(:,2:dim+1);
-        forp_p = interp1q(time_p_p,forp_tmp_p,time_x_p);    %次元一致
+        forp_p = interp1(time_p_p,forp_tmp_p,time_x_p);    %次元一致
         
         time_g = time_x_p;
         xp_sp = [ forx_p , forp_p]; % 対角空間　ｘ－ｐのみ、ｔなし

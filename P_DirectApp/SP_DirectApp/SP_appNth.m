@@ -34,7 +34,7 @@
 
 	% t >= 0 に関して, dot_p = Ft*p + g(t,xk(t),pk(t))の微分方程式の初期値問題を解く
 	while pstopFlag == 0
-		[time_p_p, forp_tmp_p] = ode15s(@i_directforp, [time_ini_p 0], [zeros(dim,1)], options);
+		[time_p_p, forp_tmp_p] = ode45(@i_directforp, [time_ini_p 0], [zeros(dim,1)], options);
 		if time_p_p(end) == 0
 			pstopFlag = 1;
 		else
@@ -48,12 +48,12 @@
 	time_p_p = tmp_time_p_p;
 	forp_tmp_p = tmp_forp_tmp_p;
 
-	% === 高速1次元線形補間(interp1q)を使うために時間ベクトルを単調増加に変換する.  ===
+	% === 高速1次元線形補間(interp1)を使うために時間ベクトルを単調増加に変換する.  ===
 	tmp_data = [time_p_p,forp_tmp_p];
 	tmp_data = sortrows(tmp_data,1);
 	time_p_p = tmp_data(:,1);
 	forp_tmp_p = tmp_data(:,2:dim+1);
-	forp_p = interp1q(time_p_p,forp_tmp_p,time_x_p);
+	forp_p = interp1(time_p_p,forp_tmp_p,time_x_p);
 
 	time_x = time_x_p;
 	time_g = time_x;
