@@ -1,148 +1,153 @@
-% ======================= P3_decide_xi ==============================
-% x(t), p(t)ã‚’æ±‚ã‚ã‚‹ãŸã‚ã®åˆæœŸå€¤Î¾ã®å€‹æ•°ã®æ±ºå®š                      
-%                                                                   
-% æ¬¡æ•°ã«å¿œã˜ã¦å›è»¢æ–¹å‘ã®åˆ†å‰²æ•°ã‚’æ±ºã‚ã‚‹.                             
-% - 1æ¬¡å…ƒï¼šæ±ºå®šé …ç›®ãªã—                                             
-% - 2æ¬¡å…ƒï¼štheta4                                                   
-% - 3æ¬¡å…ƒï¼štheta4, theta3                                           
-% - 4æ¬¡å…ƒï¼štheta4, theta3, theta2                                   
-% - 5æ¬¡å…ƒï¼štheta4, theta3, theta2, theta1 
-% ver5æ›´æ–°è€…  :2021/2/25 ç«¹ç”° è³¢çŸ¢
-% æœ€çµ‚æ›´æ–°è€…  :2021/2/25 ç«¹ç”° è³¢çŸ¢
 % ==================================================================
+% x(t), p(t)‚ğ‹‚ß‚é‚½‚ß‚Ì‰Šú’lƒÌ‚ÌŒÂ”‚ÌŒˆ’è
+%
+% Ÿ”‚É‰‚¶‚Ä‰ñ“]•ûŒü‚Ì•ªŠ„”‚ğŒˆ‚ß‚é.
+% - 1ŸŒ³FŒˆ’è€–Ú‚È‚µ
+% - 2ŸŒ³Ftheta1
+% - 3ŸŒ³Ftheta1, theta2
+% - 4ŸŒ³Ftheta1, theta2, theta3
+%
+% generalized for any dimension : Hamaguchi  2013.07.02    
+% adopted from 2021/7/16 Sakamoto
+% =========================================================================
+% OKNG2 = 0;
+% iniFlag  = 0;
+% xiTHFlag = 0;
+%radi = 0.5;
+%
+% === ƒÌ‚Ì”ÍˆÍ(xiTHFlag = 1‚Ìê‡‚É’è‹`‚·‚é)
+% span_th4 =6; % ( Default : 12 )
+% theta4 = linspace(0 , 2*pi - (2*pi/span_th4) ,span_th4);
+% 
+span_th3 =6; % ( Default : 12 )
+theta3 = linspace(0 , pi - (pi / span_th3),span_th3);
+
+span_th2 = 6; % ( Default : 12 )
+theta2 = linspace(0,  pi - (pi / span_th2),span_th2);
+
+span_th1 = 6; % ( Default : 12 )
+theta1 = linspace(0,  pi - (pi / span_th1),span_th1);
+% 
+
 
 OKNG = 1;
 
 while( OKNG2 ~= 1 )
-
-	init_sum = [];
-	xi_sum = [];
-
-	if iniFlag == 0
-		if dim == 1
-			theta4 = [];
-			theta3 = [];
-			theta2 = [];
-			theta1 = [];
-		elseif dim == 2
-			theta3 = [];
-			theta2 = [];
-			theta1 = [];
-		elseif dim == 3
-			theta2 = [];
-			theta1 = [];
-		elseif dim == 4
-			theta1 = [];
-		end
-
-		if xiTHFlag == 0
-			if dim == 1
-			elseif dim >= 2
-				span_th4  = input('Divide theta4(0 to 2*pi) : ( Default : 12 ) > ');
-				while( isempty(span_th4) == 1 )
-					span_th4  = input('Divide theta4(0 to 2*pi) : ( Default : 12 ) > ');
-				end
-				theta4 = linspace(0,2*pi-(2*pi/span_th4),span_th4);
-
-				if dim >= 3
-					span_th3  = input('Divide theta3(0 to pi) : ( Default : 6 ) > ');
-					while( isempty(span_th3) == 1 )
-						span_th3  = input('Divide theta3(0 to pi) : ( Default : 6 ) > ');
-					end
-					theta3 = linspace(0,pi-(pi/span_th3),span_th3);
-
-					if dim >= 4
-						span_th2  = input('Divide theta2(0 to pi) : ( Default : 6 ) > ');
-						while( isempty(span_th2) == 1 )
-							span_th2  = input('Divide theta2(0 to pi) : ( Default : 6 ) > ');
-						end
-						theta2 = linspace(0,pi-(pi/span_th2),span_th2);
-
-						if dim >= 5
-							span_th1  = input('Divide theta1(0 to pi) : ( Default : 6 ) > ');
-							while( isempty(span_th1) == 1 )
-								span_th1  = input('Divide theta1(0 to pi) : ( Default : 6 ) > ');
-							end
-							theta1 = linspace(0,pi-(pi/span_th1),span_th1);
-						end
-					end
-				end
-			end
-		end
-		
-		% Give theta1,2,3,4 
-
-		if dim == 1
-			init_sum = radi;
-			xi_sum = 0;
-        end
-
-        
-		for it4 = 1:length(theta4)
-			if dim == 2 % = 2æ¬¡å…ƒã‚·ã‚¹ãƒ†ãƒ  = 
-				z4 = radi * cos(theta4(it4));
-				z5 = radi * sin(theta4(it4));
-				init_sum =[ init_sum; transpose(Trs*[z4 , z5]')]; % ( x'-p'ç©ºé–“ )
-				xi_sum = [ xi_sum; theta4(it4) ];
-			end
-
-			for it3 = 1:length(theta3)
-				if dim == 3 % = 3æ¬¡å…ƒã‚·ã‚¹ãƒ†ãƒ  = 
-					z3 = radi * cos(theta3(it3)) * cos(theta4(it4));
-					z4 = radi * sin(theta3(it3)) * cos(theta4(it4));
-					z5 = radi * sin(theta4(it4));
-					init_sum =[ init_sum; transpose(Trs*[z3, z4 , z5]')]; % ( x'-p'ç©ºé–“ )
-					xi_sum = [ xi_sum; theta4(it4),theta3(it3) ];
-				end
-
-				for it2 = 1:length(theta2)
-					if dim == 4 % = 4æ¬¡å…ƒã‚·ã‚¹ãƒ†ãƒ  = 
-						z2 = radi * cos(theta2(it2)) * cos(theta3(it3)) * cos(theta4(it4));
-						z3 = radi * sin(theta2(it2)) * cos(theta3(it3)) * cos(theta4(it4));
-						z4 = radi * sin(theta3(it3)) * cos(theta4(it4));
-						z5 = radi * sin(theta4(it4));
-						init_sum =[ init_sum; transpose(Trs*[z2, z3, z4 , z5]')]; % ( x'-p'ç©ºé–“ )
-						xi_sum = [ xi_sum; theta4(it4),theta3(it3),theta2(it2) ];
-					end
-
-					for it1 = 1:length(theta1)
-						if dim == 5 % = 5æ¬¡å…ƒã‚·ã‚¹ãƒ†ãƒ  = 
-							z1 = radi * cos(theta1(it1)) * cos(theta2(it2)) * cos(theta3(it3)) * cos(theta4(it4));
-							z2 = radi * sin(theta1(it1)) * cos(theta2(it2)) * cos(theta3(it3)) * cos(theta4(it4));
-							z3 = radi * sin(theta2(it2)) * cos(theta3(it3)) * cos(theta4(it4));
-							z4 = radi * sin(theta3(it3)) * cos(theta4(it4));
-							z5 = radi * sin(theta4(it4));
-							init_sum = [ init_sum; transpose(Trs*[z1, z2, z3, z4 , z5]')]; % ( x'-p'ç©ºé–“ )
-							xi_sum = [ xi_sum; theta4(it4),theta3(it3),theta2(it2),theta1(it1)  ];
-						end
-					end
-				end
-			end
-		end
-	elseif iniFlag == 1
-
-		Decide_xi
-		xi_sum = init_sum;
-        fprintf('xi set from Decide_xi.m')
-	end
-
-	[ini_row,ini_col] = size(init_sum);
-	total = ini_row*(knum+1);
-	fprintf('\n')	
-	fprintf('Total calculation times : %d\n' ,total)
     
-	if xiTHFlag == 0
-		if dim >= 2
-			OKNG2 = input('OK ? NG ? : OK = 1, NG = 2 > ');
-			fprintf('\n')
-		else
-			OKNG2 = 1;
-		end
-
-		if isempty(OKNG2)
-			OKNG2 = 0;
-		end
-	else
-		OKNG2 = 1;
-	end
+    init_sum = [];
+    xi_sum = [];
+    
+    if iniFlag == 0 % xi's will be computed
+        %theta(k)‚ÌƒNƒŠƒA‚Í‰º•”‚ÉˆÚ“®
+        if xiTHFlag == 0 % Division for xi's is requested in command window
+            if dim == 1
+            elseif dim >= 2
+                span_th1  = input('Divide theta1(0 to 2*pi) : ( Default : 12 ) > ');
+                while(isempty(span_th1) == 1)
+                    span_th1  = input('Divide theta1(0 to 2*pi) : ( Default : 12 ) > ');
+                end
+                %‰ü•Ò”Ån
+                %{%
+                target_theta = 3*pi/2-.035+.1+.05;
+                delta_tmp = .01;
+                %theta1 = target_theta;
+                %theat1‚ğtarget_theta +- delta_tmp ‚Ì”ÍˆÍ‚Éspan_th1ŒÂ‚ğì¬
+                theta1 = linspace(target_theta-delta_tmp,target_theta+delta_tmp,span_th1);
+                %ƒvƒ‰ƒX‘S•ûˆÊ‚É36ŒÂì¬
+                theta1 = [theta1,linspace(0,2*pi-(2*pi/span_th1),36)];
+                %}%
+                %‰ü•Ò”ÅI
+                %theta1 = linspace(0,2*pi-(2*pi/span_th1),span_th1); %Original
+                if dim >=3
+                    for k = 2:dim-1
+                        span_tmp=[];
+                        txt=['Divide theta',int2str(k),'(0 to pi) : ( Default : 6 ) > '];
+                        span_tmp = input(txt);
+                        while( isempty(span_tmp) == 1 )
+                            span_tmp = input(txt);
+                        end
+                        eval(['theta',int2str(k),' = linspace(0,pi-(pi/span_tmp),span_tmp);']);
+                    end
+                end
+            end
+        end
+        
+        % Give theta1,2,3,4...
+        
+        if dim == 1
+            init_sum = [radi;-radi];
+            xi_sum = [0;0];
+        end
+        
+        if dim > 1 % = 2ŸŒ³ˆÈã =
+            init_sum_xp=[];
+            xi_sum_tmp=[];
+            eval(['it_temp=length(theta',int2str(dim-1),');']); %it_temp=length(theta_{dim-1});
+            for it = 1:it_temp;
+                eval(['theta_tmp=theta',int2str(dim-1),'(it);']); %theta_tmp=theta_{dim-1}(it);
+                z1 = cos(theta_tmp);
+                z2 = sin(theta_tmp);
+                init_sum_xp =horzcat(init_sum_xp,[z1;z2]); % ( x-p‹óŠÔ )
+                xi_sum = [ xi_sum; theta_tmp ];
+            end
+            
+            if dim > 2  % = 3ŸŒ³ˆÈã =
+                for k = 3:dim
+                    eval(['it_temp=length(theta',int2str(dim-k+1),');']); %it_temp=length(theta_{dim-k+1});
+                    z1=[];
+                    z2=[];
+                    init_sum_tmp=[];
+                    xi_sum_tmp=[];
+                    [ini_row,ini_col] = size(init_sum_xp);
+                    for it = 1:it_temp
+                        eval(['theta_tmp=theta',int2str(dim-k+1),'(it);']); %theta_tmp=theta_{dim-k+1}(it);
+                        z1 = init_sum_xp .* cos(theta_tmp);
+                        z2 = sin(theta_tmp).*ones(1,ini_col);
+                        init_sum_tmp = horzcat(init_sum_tmp,vertcat(z1,z2));
+                        xi_sum_tmp = vertcat(xi_sum_tmp,horzcat(xi_sum,theta_tmp.*ones(ini_col,1)));
+                    end
+                    init_sum_xp=init_sum_tmp;% ( x-p‹óŠÔ )
+                    xi_sum=xi_sum_tmp;
+                end
+            end
+            init_sum_xp=radi.*init_sum_xp;
+            
+            [ini_row,ini_col] = size(init_sum_xp);
+            
+            for it=1:ini_col
+                init_sum = [init_sum;(Trs*init_sum_xp(:,it))'];% ( x'-p'‹óŠÔ )
+            end
+        end
+        
+    elseif iniFlag == 1 % xi's are given in Dcide_xi.m
+        
+        Decide_xi
+        xi_sum = init_sum;
+    end
+    
+    [ini_row,ini_col] = size(init_sum);
+    total = ini_row*(knum+1);
+    
+    if xiTHFlag == 0 % % Division for xi's is given in command window
+        fprintf('\n')
+        fprintf('Total calculation times : %d\n' ,total)
+        if dim >= 2
+            OKNG2 = input('OK ? NG ? : OK = 1, NG = 2 > ');
+            fprintf('\n')
+        else
+            OKNG2 = 1;
+        end
+        
+        if OKNG2~=1 %%“ü—Í‚â‚è’¼‚µ‚ğ‚·‚éê‡
+            for k=1:dim-1
+                eval(['theta',num2str(k),'=[];']); %theta(k)‚ÌƒNƒŠƒA
+            end
+        end
+        
+        if isempty(OKNG2)
+            OKNG2 = 0;
+        end
+    else
+        OKNG2 = 1;
+    end
 end

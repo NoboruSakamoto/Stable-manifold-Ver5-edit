@@ -9,6 +9,7 @@
 % 値を決める.  
 % ver5更新者  :2021/2/25 竹田 賢矢
 % 最終更新者  :2021/2/25 竹田 賢矢
+% 2021/7/15 Sakamoto, Figure and plot has been changed
 % ==================================================================
 % === initialize ===
 OKNG = 255;
@@ -27,6 +28,7 @@ if and(iniFlag == 0,or(kFlag == 0,xiRFlag == 0)) % knumを決める
             knum = input('approximate times : k =  ');
         end
         init_sum_P2 = Trs;
+        stopTimes = [];
         for i_P2 = 1:size(init_sum_P2,2)
             ini = (init_sum_P2(:,i_P2) * radi);
 					% === start : 0→∞の積分における極限を求める ===
@@ -48,6 +50,7 @@ if and(iniFlag == 0,or(kFlag == 0,xiRFlag == 0)) % knumを決める
                         xlabel('k');ylabel('Hamiltonian @t=0');
 						knum_i = knum_i + 1;
 					end % while( knum_i == knum )
+                    stopTimes = [stopTimes, stoptime];
         end
         fprintf('Parameter : k = %d, radi = %6.5f\n' ,knum,radi)
 		OKNG = input(' OK : 1, Change k or radi : 2 > ');

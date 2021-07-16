@@ -39,9 +39,9 @@ xiRFlag  = 0;  % xi‚Ì‘å‚«‚³‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:
 % Radius of convergence (0:give in the M-window, 0:give in systemData.m)
 
 xiTHFlag = 1;  % xi‚Ì•ªŠ„‚ğsystemdata.m‚Å—^‚¦‚é‚©‚Ç‚¤‚©(0:Matlabã‚Å—^‚¦‚é, 1:systemData.m‚Å—^‚¦‚é)
-% Samples in circumferential direction (0:give in the M-window, 0:give in systemData.m)
+% Samples in circumferential direction (0:requested in the Cmd-window, 1:give in systemData.m)
 
-iniFlag  = 0; % The set of xi's (0:give in systemData.m, 1:give in Decide_xi.m)
+iniFlag  = 0; % The set of xi's (0:will be computed, 1:give in Decide_xi.m)
 
 calcuFlag = 0; % Shooting‚ğ‘_‚Á‚½“_‚É“’B‚·‚é‚Ü‚ÅŒvZ‚³‚¹‚é‚©‚Ç‚¤‚©.(0:ˆê—l‚É•Û‘¶, 1:‘_‚Á‚½“_‚Ì‚İ•Û‘¶)
 
@@ -96,15 +96,15 @@ knum = 3;
 %   / Radius of convergence (necessary when kFlag = 1) ===
 radi=0.6;
 radi = 1;
-% === ƒÌ‚Ì”ÍˆÍ(xiTHFlag = 1‚Ìê‡‚É’è‹`‚·‚é)
-span_th4 =6; % ( Default : 12 )
-theta4 = linspace(0 , 2*pi - (2*pi/span_th4) ,span_th4);
-
+% === ƒÌ‚Ì”ÍˆÍ(xiTHFlag = 1‚Ìê‡‚É’è‹`‚·‚é) this depends on dimension
 span_th3 =6; % ( Default : 12 )
-theta3 = linspace(0 , pi - (pi / span_th3),span_th3);
+theta3 = linspace(0 , 2*pi - (2*pi/span_th3) ,span_th3);
 
-span_th2 = 6; % ( Default : 12 )
-theta2 = linspace(0,  pi - (pi / span_th2),span_th2);
+span_th2 =6; % ( Default : 12 )
+theta2 = linspace(0 , pi - (pi / span_th2),span_th2);
+
+span_th1 = 6; % ( Default : 12 )
+theta1 = linspace(0,  pi - (pi / span_th1),span_th1);
 % === When kFlag = 1 & xiRFlag = 1 & xiTHFlag = 1 ===
 % === Tneg‚ÌÅ‘å’l / Maximum Tneg ===
 Tneg_max = -3;

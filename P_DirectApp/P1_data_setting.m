@@ -7,6 +7,7 @@
 % DirectAppで使用
 % ver5更新者  :2021/2/25 竹田 賢矢
 % 最終更新者  :2021/3/2 竹田 賢矢
+% 2021/7/15 Sakamoto, Diagonalize^(-1) is replaced with Diag_inv
 % ==========================================================================
 global P F Ft Diagonalize Diag_inv Ham time_g xp_sp
 systemData    % 状態方程式の各行列の定義
@@ -26,9 +27,12 @@ Diag_inv = [eye(dim)+L*P, -L;
                 -P, eye(dim)];  %Diagonalize^(-1); changed using simplectic property
 Ham = [A,-Rbar;-2*Q,-A'];
 %% === 各種行列表示 ===
+% Trs consists of real eigenvectors v1,...,vn with
+% Re(lambda1)<Re(lambda2)<...<Re(lambdan)<0 and the last column in Trs
+% corresponds to the eigenvalue with weakest damping
 fprintf('\n')
 fprintf('Diagonalization check : \n Diagonalize^(-1) * Ham * Diagonalize=\n')
-disp(Diagonalize \ Ham * Diagonalize)
+disp(Diag_inv * Ham * Diagonalize)
 fprintf('\n')
 %
 [eigF,Trs] = ordblk(F,'real');

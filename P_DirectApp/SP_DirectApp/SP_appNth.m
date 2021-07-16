@@ -19,7 +19,7 @@
 
 	% t >= 0 ‚ÉŠÖ‚µ‚Ä, dot_x = F*x + f(t,xk(t),pk(t))‚Ì”÷•ª•û’ö®‚Ì‰Šú’l–â‘è‚ğ‰ğ‚­
 	while xstopFlag == 0
-		[time_x_p, forx_p,tE,fE,iE] = ode15s(@i_directforx, [time_ini_x, stoptime], [ini], options);
+		[time_x_p, forx_p,tE,fE,iE] = ode45(@i_directforx, [time_ini_x, stoptime], [ini], options);
 		if time_x_p(end) == stoptime
 			xstopFlag = 1;
 		else

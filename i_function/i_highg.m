@@ -7,14 +7,15 @@ function dx = i_highg(xp)
 %                                                                   
 % Å¶ÅjxpÇÕëŒäpâªÇ≥ÇÍÇƒÇ¢Ç»Ç¢.                                       
 %                                                                   
-% created : Y.Umemura                                               
+% created : Y.Umemura
+% 2021/07/15 Sakamoto, Diagonalize \ is replaced with Diag_inv *.
 % ==================================================================
-global Diagonalize dim
+global Diagonalize dim Diag_inv
 
 xpt = Diagonalize * xp;
 tmpF = HamF(xpt(1:dim),xpt(dim+1:dim*2));
 tmpG = HamG(xpt(1:dim),xpt(dim+1:dim*2));
 tmp = [tmpF;tmpG];
 
-dx = Diagonalize \ tmp;
+dx = Diag_inv * tmp;
 dx = dx(dim+1:dim*2);
