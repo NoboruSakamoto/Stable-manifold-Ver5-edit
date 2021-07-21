@@ -8,27 +8,9 @@
 % - 4次元：theta1, theta2, theta3
 %
 % generalized for any dimension : Hamaguchi  2013.07.02    
-% adopted from 2021/7/16 Sakamoto
+% adopted from 2021/7/21 Sakamoto
+% with modification of interchanging cos and sin and removing redundancy.
 % =========================================================================
-% OKNG2 = 0;
-% iniFlag  = 0;
-% xiTHFlag = 0;
-%radi = 0.5;
-%
-% === ξの範囲(xiTHFlag = 1の場合に定義する)
-% span_th4 =6; % ( Default : 12 )
-% theta4 = linspace(0 , 2*pi - (2*pi/span_th4) ,span_th4);
-% 
-span_th3 =6; % ( Default : 12 )
-theta3 = linspace(0 , pi - (pi / span_th3),span_th3);
-
-span_th2 = 6; % ( Default : 12 )
-theta2 = linspace(0,  pi - (pi / span_th2),span_th2);
-
-span_th1 = 6; % ( Default : 12 )
-theta1 = linspace(0,  pi - (pi / span_th1),span_th1);
-% 
-
 
 OKNG = 1;
 
@@ -46,18 +28,7 @@ while( OKNG2 ~= 1 )
                 while(isempty(span_th1) == 1)
                     span_th1  = input('Divide theta1(0 to 2*pi) : ( Default : 12 ) > ');
                 end
-                %改編版始
-                %{%
-                target_theta = 3*pi/2-.035+.1+.05;
-                delta_tmp = .01;
-                %theta1 = target_theta;
-                %theat1をtarget_theta +- delta_tmp の範囲にspan_th1個を作成
-                theta1 = linspace(target_theta-delta_tmp,target_theta+delta_tmp,span_th1);
-                %プラス全方位に36個作成
-                theta1 = [theta1,linspace(0,2*pi-(2*pi/span_th1),36)];
-                %}%
-                %改編版終
-                %theta1 = linspace(0,2*pi-(2*pi/span_th1),span_th1); %Original
+ 
                 if dim >=3
                     for k = 2:dim-1
                         span_tmp=[];
@@ -82,9 +53,9 @@ while( OKNG2 ~= 1 )
         if dim > 1 % = 2次元以上 =
             init_sum_xp=[];
             xi_sum_tmp=[];
-            eval(['it_temp=length(theta',int2str(dim-1),');']); %it_temp=length(theta_{dim-1});
-            for it = 1:it_temp;
-                eval(['theta_tmp=theta',int2str(dim-1),'(it);']); %theta_tmp=theta_{dim-1}(it);
+            eval(['it_temp=length(theta',int2str(1),');']); %it_temp=length(theta_{dim-1});
+            for it = 1:it_temp
+                eval(['theta_tmp=theta',int2str(1),'(it);']); %theta_tmp=theta_{dim-1}(it);
                 z1 = cos(theta_tmp);
                 z2 = sin(theta_tmp);
                 init_sum_xp =horzcat(init_sum_xp,[z1;z2]); % ( x-p空間 )
@@ -92,30 +63,32 @@ while( OKNG2 ~= 1 )
             end
             
             if dim > 2  % = 3次元以上 =
-                for k = 3:dim
-                    eval(['it_temp=length(theta',int2str(dim-k+1),');']); %it_temp=length(theta_{dim-k+1});
+                for k = 2:dim-1
+                    eval(['it_temp=length(theta',int2str(k),');']); %it_temp=length(theta_{k});
                     z1=[];
                     z2=[];
                     init_sum_tmp=[];
                     xi_sum_tmp=[];
-                    [ini_row,ini_col] = size(init_sum_xp);
+                    [~,ini_col] = size(init_sum_xp);
                     for it = 1:it_temp
-                        eval(['theta_tmp=theta',int2str(dim-k+1),'(it);']); %theta_tmp=theta_{dim-k+1}(it);
-                        z1 = init_sum_xp .* cos(theta_tmp);
-                        z2 = sin(theta_tmp).*ones(1,ini_col);
+                        eval(['theta_tmp=theta',int2str(k),'(it);']); %theta_tmp=theta_{dim-k+1}(it);
+                        z1 = init_sum_xp .* sin(theta_tmp);
+                        z2 = cos(theta_tmp).*ones(1,ini_col);
                         init_sum_tmp = horzcat(init_sum_tmp,vertcat(z1,z2));
                         xi_sum_tmp = vertcat(xi_sum_tmp,horzcat(xi_sum,theta_tmp.*ones(ini_col,1)));
                     end
-                    init_sum_xp=init_sum_tmp;% ( x-p空間 )
+                    init_sum_xp=init_sum_tmp;% Sample vectors in unit sphere 
                     xi_sum=xi_sum_tmp;
                 end
             end
+            init_sum_xp = uniquetol(init_sum_xp','ByRows',true); % remove redundancy 
+            init_sum_xp = init_sum_xp';
             init_sum_xp=radi.*init_sum_xp;
             
-            [ini_row,ini_col] = size(init_sum_xp);
+            [~,ini_col] = size(init_sum_xp);
             
             for it=1:ini_col
-                init_sum = [init_sum;(Trs*init_sum_xp(:,it))'];% ( x'-p'空間 )
+                init_sum = [init_sum;(Trs*init_sum_xp(:,it))'];% This includes eigenvectors of F
             end
         end
         

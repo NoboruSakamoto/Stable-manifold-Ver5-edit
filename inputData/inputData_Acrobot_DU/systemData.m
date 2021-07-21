@@ -96,15 +96,18 @@ knum = 3;
 %   / Radius of convergence (necessary when kFlag = 1) ===
 radi=0.6;
 radi = 1;
-% === ƒÌ‚Ì”ÍˆÍ(xiTHFlag = 1‚Ìê‡‚É’è‹`‚·‚é) this depends on dimension
-span_th3 =6; % ( Default : 12 )
-theta3 = linspace(0 , 2*pi - (2*pi/span_th3) ,span_th3);
+% === ƒÌ‚Ì”ÍˆÍ(xiTHFlag = 1‚Ìê‡‚É’è‹`‚·‚é) 
+% This depends on dimension. For the highest order, 0<= theta <2pi and for
+% the rest 0<=theta<=pi. At theta=0, pi, there causes redundancy. 
 
-span_th2 =6; % ( Default : 12 )
-theta2 = linspace(0 , pi - (pi / span_th2),span_th2);
+span_th3 =4; % ( Default : 12 )
+theta3 = linspace(0 , pi ,span_th3);
 
-span_th1 = 6; % ( Default : 12 )
-theta1 = linspace(0,  pi - (pi / span_th1),span_th1);
+span_th2 =4; % ( Default : 12 )
+theta2 = linspace(0 , pi ,span_th2);
+
+span_th1 = 4; % ( Default : 12 )
+theta1 = linspace(0,  2*pi - (2*pi / span_th1),span_th1);
 % === When kFlag = 1 & xiRFlag = 1 & xiTHFlag = 1 ===
 % === Tneg‚ÌÅ‘å’l / Maximum Tneg ===
 Tneg_max = -3;
