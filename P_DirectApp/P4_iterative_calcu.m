@@ -188,3 +188,25 @@ for xi_i = 1:ini_row
     fprintf('\n')
     
 end
+%% Save data up to now 
+fprintf('Do you want to save all the computational result up to now?')
+fprintf('\n')
+OKNG_saveP4 = input('Yes =1, No = 0')
+fprintf('\n')
+if OKNG_saveP4 == 1
+	Today = clock;
+    TY = Today(1); Ty = num2str(TY);
+    TM = Today(2); Tm = num2str(TM);
+    TD = Today(3); Td = num2str(TD);
+    TT = Today(4); Tt = num2str(TT);
+    TMI = Today(5); Tmi = num2str(TMI);
+
+    Dchar = num2str(dim);          DD = strcat('dim=',Dchar);
+    Kchar = num2str(knum);         KK = strcat('k=',Kchar);
+    Radichar = num2str(radi);      RR = strcat('radi=',Radichar);
+    FileName1 = strcat(Ty,'_',Tm,'_',Td,'_',Tt,Tmi,'_',DD,'_',KK,'_',RR,'_','P4','.mat');
+
+    cd result
+    eval(['save '  FileName1])
+    cd ../
+end

@@ -97,16 +97,16 @@ knum = 3;
 radi=0.6;
 radi = 1;
 % === ξの範囲(xiTHFlag = 1の場合に定義する) 
-% This depends on dimension. For the highest order, 0<= theta <2pi and for
+% This depends on dimension. For the first order, 0<= theta <2pi and for
 % the rest 0<=theta<=pi. At theta=0, pi, there causes redundancy. 
 
-span_th3 =4; % ( Default : 12 )
+span_th3 =12; % ( Default : 12 )
 theta3 = linspace(0 , pi ,span_th3);
 
-span_th2 =4; % ( Default : 12 )
+span_th2 =12; % ( Default : 12 )
 theta2 = linspace(0 , pi ,span_th2);
 
-span_th1 = 4; % ( Default : 12 )
+span_th1 = 12; % ( Default : 12 )
 theta1 = linspace(0,  2*pi - (2*pi / span_th1),span_th1);
 % === When kFlag = 1 & xiRFlag = 1 & xiTHFlag = 1 ===
 % === Tnegの最大値 / Maximum Tneg ===
@@ -118,7 +118,7 @@ HAMK_n_max_juddge  = 1e-3;
 tol = 1e-12;    % - 極限判断のための閾値 / Threshold value of 0-limit used in P2
 
 % === ode関数用の設定 / ode options ===
-options_pos = odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12);
+options_pos = odeset('RelTol',1e-6, 'AbsTol',1e-6,'Events',@termination,'Refine',50,'InitialStep',1e-12);
 options_neg = odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12);
 
 % === 計算結果のデータ間引き数(>=1の整数) / Frequency of thing out data (integer) ===
