@@ -118,9 +118,10 @@ HAMK_n_max_juddge  = 1e-3;
 tol = 1e-12;    % - 極限判断のための閾値 / Threshold value of 0-limit used in P2
 
 % === ode関数用の設定 / ode options ===
-options_pos = odeset('RelTol',1e-6, 'AbsTol',1e-6,'Events',@termination,'Refine',50,'InitialStep',1e-12);
+options_pos = odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12);
+str_op_pos = "odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12)";% copy above
 options_neg = odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12);
-
+str_op_neg = "odeset('RelTol',1e-9, 'AbsTol',1e-9,'Events',@termination,'Refine',50,'InitialStep',1e-12)";% copy above
 % === 計算結果のデータ間引き数(>=1の整数) / Frequency of thing out data (integer) ===
 param_cull_neg = 300; % 1 means no thining out, 2 means 1 data is removed for every 2 data
 param_cull_pos = 200; % 1 means no thining out, 2 means 1 data is removed for every 2 data

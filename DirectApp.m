@@ -12,6 +12,7 @@
 % =======================================================================================================
 clear all
 close all 
+
 clc
 %% === パスの追加 ===
 %==========%
@@ -27,6 +28,14 @@ P3_decide_xi                          % プログラム3 : x(t), p(t)を求め�
 %===================%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 fprintf('\n')
+strknum = strcat('knum = ',num2str(knum),',');
+strradi = strcat('radi = ',num2str(radi),',');
+strtotalxi = strcat('total num of xis = ',num2str(ini_row),',');
+strtotalcomp = strcat('total number of comp = ',num2str(total),',');
+fprintf(strknum),fprintf('\t'), fprintf(strradi), fprintf('\t'), fprintf(strtotalxi), fprintf('\n')
+fprintf(strtotalcomp),fprintf('\n')
+fprintf('Option for positive direc.: '),fprintf(str_op_pos),fprintf('\n')
+fprintf('Option for negative direc.: '),fprintf(str_op_neg),fprintf('\n')
 fprintf('Press any key to continue')
 pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

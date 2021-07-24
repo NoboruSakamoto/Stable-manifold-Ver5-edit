@@ -12,6 +12,8 @@ global xp_sp time_g
 %% === 解軌道格納用セル定義 ===
 ALL_TXP_DATA=cell(ini_row+1,4);
 ALL_TXP_DATA(1,1:end)=[{'Name'},{'Data'},{'Ham Num'},{'Ham&Input'}];
+ALL_TXP_DATA2=cell(ini_row+1,4);
+ALL_TXP_DATA2(1,1:end)=[{'Name'},{'Data'},{'Ham Num'},{'Ham&Input'}];
 txpname1='txp';
 txpname2='_';
 txpname3='T';
@@ -182,6 +184,10 @@ for xi_i = 1:ini_row
     txpname=[txpname1,num2str(knum),txpname2,num2str(xi_i),txpname3];
     tHAMK_name=[tHAMK_nameR, num2str(xi_i)];
     ALL_TXP_DATA(xi_i+1,1:4)=eval('[{txpname},{xpTtmp_mp},{tHAMK_name},{[xpTtmp_mp(:,1),HAMKinput]}]');
+    %
+    txpname_new = repmat(xi_i,size(xpTtmp_mp,1),1);
+    tHAMK_name=[tHAMK_nameR, num2str(xi_i)];
+    ALL_TXP_DATA2(xi_i+1,1:4)=eval('[{txpname_new},{xpTtmp_mp},{tHAMK_name},{[xpTtmp_mp(:,1),HAMKinput]}]');
     %%
     clc
     fprintf('calculation( t < 0 ) : k = %d : %d[%%] (%d/%d)' ,knum,ratio,NN,total )
