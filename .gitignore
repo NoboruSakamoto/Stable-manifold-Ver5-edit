@@ -2,5 +2,6 @@
 /ver5_ref
 /temp
 P_DirectApp/*.asv
+/SP_BVP/*.asv
 /inputData/inputData_Acrobot_DU/*.asv
 matlab_workspace.mat

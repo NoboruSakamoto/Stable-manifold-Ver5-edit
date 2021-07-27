@@ -19,7 +19,8 @@ clc
 SP_Path_set
 %==========%
 % addpath('inputData/inputData_2DOF_Pendulum')
-addpath('inputData/inputData_Acrobot_DU') 
+%addpath('inputData/inputData_Acrobot_DU')
+addpath('inputData/inputData_2DOF_Pendulum') 
 %% === 安定多様体アルゴリズム ===
 %===================%
 P1_data_setting                       % プログラム1 : 共通のパラメータの設定

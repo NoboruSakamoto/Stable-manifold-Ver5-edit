@@ -7,15 +7,16 @@
 % Main側で定めた境界条件に不備があった場合errorコマンドでエラーを出力する
 %
 % 作成者　    :2021/2/23 竹田 賢矢
-% 最終更新者  :2021/2/23 竹田 賢矢
+% 更新　　　  :2021/2/23 竹田 賢矢
+% 最終更新者　:2021/7/27 坂本登
 % =======================================================================================
-%% === 初期条件の決定 ===
+%% === 目標軌道初期値の決定 ===
 ch_BS1=any(length(BC1_p(1,:))==length(Initial_State(1,:)));
 if ch_BS1==1
     ch_B1=any(norm(Initial_State-BC1_p)==0);
     while(1)
         if ch_B1==0
-            chB=input('初期条件に 1:Mainで設定した値を用いる / 0:Initial_Stateを用いる >>');
+            chB=input('目標軌道初期値に 1:Mainで設定した値を用いる / 0:Initial_Stateを用いる >>');
             if chB==0
                 BC1_p=Initial_State;
                 break
@@ -29,7 +30,7 @@ if ch_BS1==1
 else
     error('BC1_pのサイズが正しくありません');
 end
-%% === 終端条件の決定 ===
+%% === 終端値の決定 ===
 if exist('BC2_p','var')==0
     BC2_p=zeros(1,dim);
 else
@@ -38,7 +39,7 @@ else
         ch_B2=any(norm(BC2_p-zeros(1,dim))==0);
         if ch_B2==0
             while(1)
-                chB2=input('終端条件を 1:Mainで設定した値とする / 0:原点とする ');
+                chB2=input('終端値を 1:Mainで設定した値とする / 0:原点とする ');
                 if chB2==0
                     BC2_p=zeros(1,dim);
                     break

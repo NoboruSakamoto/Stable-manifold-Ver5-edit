@@ -30,14 +30,14 @@ sampling_t = 1e-3;                                 % 離散時間幅
 HAMK_n_max_juddge  = 1e-5;                         % Hamiltonian 上限
 HAMK_error = 1e9;                                  % Hamiltonian 発散判断
 %% === 目標初期値と境界条件設定 ===
-% 目標の初期値/手動で設定する際はここに手打ち
-% BC1_p=[pi-(10)*pi/180,0];
+% 目標の初期値/手動で設定する際はここに手打ち．定義なしはBC1_p = InitialStateの意
+BC1_p=[pi-(10)*pi/180, 0];
 % BC1_p=[0,4*pi,0,0];
 % BC1_p=[2*pi,0,0,0];
-BC2_p=[0,pi,0,0];%初期条件と同じ座標
-dth =1;                                          %軌道遷移の分割数
+BC2_p=[0,0];%初期条件と同じ座標
+dth =10;                                          %軌道遷移の分割数
 %% === Please check ===
-Trajectory_Num=2;
+Trajectory_Num=4;
 %===========================%
 SP_BVP_Decide_Use_Trajectory
 %===========================%
@@ -81,18 +81,18 @@ SP_BVP_Plot
 [Input_Sxint,cost_Nth_S]=f_ch_cost_cal(Sxint2_2,'遷移後');
 %% === 基準軌道の決定 ===
 if errorflag==0
-    shflag = input('遷移後の軌道を次回試行で用いる: OK = 1, NO = 0:');
+    shflag = input('遷移後の軌道を次回試行で用いる（高度な計算時のみ）: OK = 1, NO = 0:');
     if shflag==1
         sh_risou = Sxint2_2;
     end
 end
 %
 if errorflag==0
-    shflag = input('遷移後の軌道を基準軌道とする: OK = 1, NO = 0:');
+    shflag = input('遷移後の軌道を基準軌道（初期軌道）とする: OK = 1, NO = 0:');
     if shflag==1
         sh_Base = Sxint2_2;
     elseif isempty(sh_Base)==1
-        disp('基準軌道が未定義のため,得た軌道を基準軌道とします');
+        disp('基準軌道（初期軌道）が未定義のため,今得た軌道を基準軌道（初期軌道）とします');
         sh_Base = Sxint2_2;
     end
 end

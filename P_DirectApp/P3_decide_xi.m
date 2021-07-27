@@ -28,7 +28,7 @@ while( OKNG2 ~= 1 )
                 while(isempty(span_th1) == 1)
                     span_th1  = input('Divide theta1(0 to 2*pi) : ( Default : 12 ) > ');
                 end
- 
+                theta1 = [0,linspace(0,2*pi-(2*pi/span_th1),span_th1)]; 
                 if dim >=3
                     for k = 2:dim-1
                         span_tmp=[];

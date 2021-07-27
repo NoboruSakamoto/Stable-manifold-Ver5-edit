@@ -39,14 +39,14 @@ else
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(sh_Base)==0 && sh_use==0
-    sh_useB = input('基準軌道を利用する: OK = 1, NO = 0:');
+    sh_useB = input('基準軌道（初期軌道）を利用する: OK = 1, NO = 0:');
     if sh_useB==1
         Sxint2_2 = sh_Base;
     end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(mfold)==0
-    m_use = input('多様体面を引き続き利用する: OK = 1, NO = 0:');
+    m_use = input('これまでの多様体データを蓄積する: OK = 1, NO = 0:');
     if m_use==0
         mfold=[];
     end

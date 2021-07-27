@@ -197,7 +197,7 @@ end
 %% Save data up to now 
 fprintf('Do you want to save all the computational result up to now?')
 fprintf('\n')
-OKNG_saveP4 = input('Yes =1, No = 0')
+OKNG_saveP4 = input('Yes =1, No = 0 :');
 fprintf('\n')
 if OKNG_saveP4 == 1
 	Today = clock;
