@@ -95,4 +95,4 @@ fE_data=[];
 iE_data=[];
 % === 初期条件の定義 ===
 Ini_Simu=Initial_State;
-Ini_Simu=[pi+(5)*pi/180,0];
+%Ini_Simu=[pi+(5)*pi/180,0];
