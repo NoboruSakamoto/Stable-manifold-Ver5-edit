@@ -32,6 +32,9 @@ for i_forpoly=1:size(combination,1)
     %% === 最適制御入力の応答性 ===
     %===========================%
     SP_Simulation_Response_Calcu                       %シミュレーション
+% This part consists of the following subprograms: 
+%     SP_Simulation_Result_Plot
+%     SP_Simulation_Controller_Generate
     %===========================%
     %% === 計算進捗確認 ===
     disp(['calculation:',num2str(i_forpoly),'/',num2str(length(combination(:,1)))]);

@@ -31,13 +31,13 @@ HAMK_n_max_juddge  = 1e-5;                         % Hamiltonian 上限
 HAMK_error = 1e9;                                  % Hamiltonian 発散判断
 %% === 目標初期値と境界条件設定 ===
 % 目標の初期値/手動で設定する際はここに手打ち．定義なしはBC1_p = InitialStateの意
-BC1_p=[pi-(10)*pi/180, 0];
+%BC1_p=[pi-(10)*pi/180, 0];
 % BC1_p=[0,4*pi,0,0];
 % BC1_p=[2*pi,0,0,0];
 BC2_p=[0,0];%初期条件と同じ座標
 dth =5;                                          %軌道遷移の分割数
 %% === Please check ===
-Trajectory_Num=4;
+Trajectory_Num=3;
 %===========================%
 SP_BVP_Decide_Use_Trajectory
 %===========================%

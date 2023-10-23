@@ -48,6 +48,8 @@ if isempty(iE)==1                                  %iEが空配列であれば�
             otherwise
                 error('approximationflagの値が間違っています')
         end
+%     else
+%         fprintf('Cost is much larger (or smaller---strange!) than optimal value \n')
     end
 end
 %=====================================================================================================
